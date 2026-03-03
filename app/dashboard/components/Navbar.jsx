@@ -1,9 +1,31 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Sun, Moon } from 'lucide-react';
 
 export default function Navbar() {
+  const [theme, setTheme] = useState('dark');
+
+  // Sync with localStorage / OS preference on mount
+  useEffect(() => {
+    const stored = localStorage.getItem('lorri-theme');
+    if (stored) {
+      setTheme(stored);
+      document.documentElement.setAttribute('data-theme', stored);
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      setTheme('light');
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('lorri-theme', next);
+  };
+
   return (
     <motion.nav
       initial={{ y: -20, opacity: 0 }}
@@ -31,6 +53,29 @@ export default function Navbar() {
 
         {/* Right */}
         <div className="flex items-center gap-3">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="relative w-9 h-9 rounded-xl border border-glass-border bg-glass hover:bg-glass-highlight flex items-center justify-center transition-all duration-300 group"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            <Sun
+              className={`w-4 h-4 absolute transition-all duration-300 ${
+                theme === 'dark'
+                  ? 'opacity-100 rotate-0 scale-100 text-amber'
+                  : 'opacity-0 rotate-90 scale-50 text-amber'
+              }`}
+            />
+            <Moon
+              className={`w-4 h-4 absolute transition-all duration-300 ${
+                theme === 'light'
+                  ? 'opacity-100 rotate-0 scale-100 text-purple'
+                  : 'opacity-0 -rotate-90 scale-50 text-purple'
+              }`}
+            />
+          </button>
+
           <a
             href="/"
             className="text-xs text-text-secondary hover:text-text-primary transition px-3 py-1.5 rounded-lg hover:bg-glass"
