@@ -190,12 +190,6 @@ Open https://alpha-hackers.onrender.com/index.html for the landing page and [htt
 
 ### Production Build
 
-```bash
-npm run build
-npm start
-```
-
----
 
 ## 🌐 Deployment (Render)
 
@@ -291,11 +285,11 @@ Trusted by leading Indian enterprises:
 
 ## 📄 License
 
-Proprietary — LogisticsNow Pvt. Ltd.
+Proprietary — Team Alpha Hackers
 
 ---
 
 <p align="center">
   <strong>LoRRI.ai</strong> — Autonomous Freight Intelligence<br>
-  Built with ❤️ by <a href="https://lorri.in">LogisticsNow</a>
+  Built with ❤️ by <a href="https://lorri.in">Adhithya J</a>
 </p>
