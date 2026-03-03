@@ -186,7 +186,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the landing page and [http://localhost:3000/dashboard](http://localhost:3000/dashboard) for the React dashboard.
+Open https://alpha-hackers.onrender.com/index.html for the landing page and [https://alpha-hackers.onrender.com/dashboard](https://alpha-hackers.onrender.com/dashboard) for the React dashboard.
 
 ### Production Build
 
