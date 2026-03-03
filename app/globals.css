@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+/* ============================================
+   LoRRI.ai — Design Tokens
+   ============================================ */
+
+@theme {
+  --color-base: #0A0A0A;
+  --color-surface: #111111;
+  --color-elevated: #1A1A1A;
+  --color-overlay: rgba(0,0,0,0.85);
+
+  --color-glass: rgba(255,255,255,0.03);
+  --color-glass-border: rgba(255,255,255,0.06);
+  --color-glass-highlight: rgba(255,255,255,0.08);
+
+  --color-cyan: #00F0FF;
+  --color-cyan-dim: rgba(0,240,255,0.08);
+  --color-cyan-glow: rgba(0,240,255,0.15);
+  --color-purple: #8B5CF6;
+  --color-purple-dim: rgba(139,92,246,0.08);
+  --color-purple-glow: rgba(139,92,246,0.15);
+  --color-green: #10B981;
+  --color-green-dim: rgba(16,185,129,0.08);
+  --color-amber: #F59E0B;
+  --color-amber-dim: rgba(245,158,11,0.08);
+  --color-red: #EF4444;
+
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #A0A0A0;
+  --color-text-muted: #666666;
+  --color-text-dim: #444444;
+
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ============================================
+   Global Body
+   ============================================ */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-base text-text-primary font-sans antialiased;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   Glass Utility Classes
+   ============================================ */
+.glass-panel {
+  @apply bg-glass border border-glass-border rounded-2xl;
+  backdrop-filter: blur(20px) saturate(1.5);
+}
+
+.glass-glow-cyan {
+  box-shadow: 0 0 30px var(--color-cyan-glow), 0 0 60px rgba(0,240,255,0.05);
+}
+
+.glass-glow-purple {
+  box-shadow: 0 0 30px var(--color-purple-glow), 0 0 60px rgba(139,92,246,0.05);
+}
+
+/* ============================================
+   Geist Mono / JetBrains Mono trace text
+   ============================================ */
+.font-trace {
+  font-family: var(--font-mono);
+  font-feature-settings: 'liga' 1, 'calt' 1;
+}
+
+/* ============================================
+   Custom Scrollbar
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+
+/* ============================================
+   Animations
+   ============================================ */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes float-up {
+  0%   { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-8px); opacity: 0.7; }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.animate-glow-breathe {
+  animation: glow-breathe 3s ease-in-out infinite;
+}
+
+/* ============================================
+   Gradient Text Utility
+   ============================================ */
+.gradient-text {
+  background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-purple) 50%, var(--color-cyan) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+}
+
+/* ============================================
+   ReAct Trace Step Styling
+   ============================================ */
+.trace-step-thought { border-left: 2px solid var(--color-cyan); }
+.trace-step-action  { border-left: 2px solid var(--color-purple); }
+.trace-step-observation { border-left: 2px solid var(--color-green); }

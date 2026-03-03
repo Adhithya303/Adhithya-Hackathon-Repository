@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LoRRI.ai — Global Smart Logistics Grid by LogisticsNow. Powering Freight Intelligence, Procurement and End-to-End Digitization/TMS across 80,000+ routes.">
+    <meta name="theme-color" content="#0A0A0A">
+    <title>LoRRI.ai — Global Smart Logistics Grid | LogisticsNow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Prevent flash of wrong theme
+        (function(){var t=localStorage.getItem('lorri-theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);})();
+    </script>
+</head>
+<body>
+    <!-- Global Freight Grid Background -->
+    <canvas id="freight-grid"></canvas>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <div class="nav-brand">
+                <div class="brand-mark">
+                    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="2" width="28" height="28" rx="6" stroke="url(#logo-grad)" stroke-width="2"/>
+                        <path d="M10 16L14 20L22 12" stroke="url(#logo-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="16" cy="16" r="3" fill="url(#logo-grad)" opacity="0.3"/>
+                        <defs>
+                            <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
+                                <stop stop-color="#00F0FF"/>
+                                <stop offset="1" stop-color="#8B5CF6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <span class="brand-text">LoRRI<span class="brand-dot">.ai</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#platform" class="nav-link">Platform</a>
+                <a href="#agents" class="nav-link">Agents</a>
+                <a href="#intelligence" class="nav-link">Intelligence</a>
+                <a href="#roi" class="nav-link">ROI Calculator</a>
+                <a href="https://logisticsnow.in/about-us.aspx" class="nav-link" target="_blank">About Us</a>
+            </div>
+            <div class="nav-actions">
+                <button class="cmd-k-trigger" id="cmd-k-trigger" aria-label="Open command palette">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                    <span>Search intelligence...</span>
+                    <kbd>⌘K</kbd>
+                </button>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark mode" title="Toggle theme">
+                    <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">System Online</span>
+                </div>
+                <a href="/dashboard" class="btn btn-primary" style="margin-right:6px;">Command Center</a>
+                <a href="#demo" class="btn btn-ghost" style="font-size:0.75rem;">Schedule Demo</a>
+            </div>
+            <button class="nav-mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section: Live Agent Simulation -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <div class="hero-badge glass-panel">
+                <span class="badge-pulse"></span>
+                <span class="badge-text">Global Smart Logistics Grid — by LogisticsNow</span>
+            </div>
+            <h1 class="hero-title">
+                Don't just manage freight.<br>
+                <span class="gradient-text">Deploy agents that solve it.</span>
+            </h1>
+            <p class="hero-subtitle">
+                The Global Smart Logistics Grid — leveraging <strong>80,000+ routes</strong> and 
+                <strong>₹2,500 Crore+</strong> in real-time freight intelligence to power autonomous 
+                procurement, TMS and end-to-end digitization for leading companies globally.
+            </p>
+            <div class="hero-actions">
+                <a href="#demo" class="btn btn-primary btn-lg">
+                    <span class="btn-glow"></span>
+                    Launch Command Center
+                </a>
+                <a href="#agents" class="btn btn-ghost btn-lg">
+                    Explore Agent Fleet →
+                </a>
+            </div>
+        </div>
+
+        <!-- Live Reasoning Trace Panel -->
+        <div class="hero-simulation">
+            <div class="simulation-panel glass-panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="panel-icon">◆</span>
+                        Live Reasoning Trace
+                    </div>
+                    <div class="panel-controls">
+                        <button class="trace-api-btn glass-panel-mini" id="trace-api-btn">
+                            <span class="trace-dot"></span>
+                            <span>Stream from API</span>
+                        </button>
+                        <span class="trace-status">
+                            <span class="trace-dot"></span>
+                            ReAct Cycle Active
+                        </span>
+                    </div>
+                </div>
+                <div class="simulation-split">
+                    <!-- Input/Goal Pane -->
+                    <div class="sim-pane sim-input">
+                        <div class="pane-label">GOAL INPUT</div>
+                        <div class="sim-goal" id="sim-goal">
+                            <span class="goal-cursor">▸</span>
+                            <span id="goal-text" class="mono-text"></span>
+                            <span class="typing-cursor">|</span>
+                        </div>
+                    </div>
+                    <!-- ReAct Trace Pane -->
+                    <div class="sim-pane sim-trace">
+                        <div class="pane-label">REASONING TRACE</div>
+                        <div class="trace-log" id="trace-log">
+                            <!-- Traces injected by JS -->
+                        </div>
+                    </div>
+                </div>
+                <div class="simulation-footer">
+                    <div class="metric-row">
+                        <div class="metric-item">
+                            <span class="metric-label">Lanes Analyzed</span>
+                            <span class="metric-value" id="metric-lanes">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Transporters Evaluated</span>
+                            <span class="metric-value" id="metric-carriers">0</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Cost Reduction</span>
+                            <span class="metric-value accent-cyan" id="metric-savings">0%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">CO₂ Avoided</span>
+                            <span class="metric-value accent-green" id="metric-co2">0 MT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Stats Bar -->
+        <div class="hero-stats">
+            <div class="stat-item glass-panel-mini">
+                <span class="stat-number" data-target="80000">0</span>
+                <span class="stat-suffix">+</span>
+                <span class="stat-label">Routes Mapped</span>
+            </div>
+            <div class="stat-item glass-panel-mini">
+                <span class="stat-number" data-target="2500">0</span>
+                <span class="stat-suffix">Cr+</span>
+                <span class="stat-label">Freight Intelligence (₹)</span>
+            </div>
+            <div class="stat-item glass-panel-mini">
+                <span class="stat-number" data-target="2200">0</span>
+                <span class="stat-suffix">+</span>
+                <span class="stat-label">Carriers / Transporters</span>
+            </div>
+            <div class="stat-item glass-panel-mini">
+                <span class="stat-number" data-target="72">0</span>
+                <span class="stat-suffix">hrs</span>
+                <span class="stat-label">Advance Disruption Alert</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section: Glass Box UI -->
+    <section class="section section-platform" id="platform">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag glass-panel-mini">THE GLASS BOX</span>
+                <h2 class="section-title">Intelligence you can <span class="gradient-text">see and audit.</span></h2>
+                <p class="section-desc">
+                    Powering Freight Intelligence, Procurement and End-to-End Digitization/TMS
+                    at leading companies globally. Every decision is visible, traceable, and explainable.
+                </p>
+            </div>
+
+            <div class="glass-box-demo">
+                <div class="glass-box-grid">
+                    <div class="glass-feature glass-panel" data-aos="fade-up">
+                        <div class="feature-icon icon-cyan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <h3>Agentic Visualization</h3>
+                        <p>Watch AI reasoning unfold in real-time. Every thought, action, and observation is displayed through our proprietary ReAct trace viewer.</p>
+                        <div class="feature-metric">
+                            <span class="metric-highlight">100%</span> Decision Transparency
+                        </div>
+                    </div>
+                    <div class="glass-feature glass-panel" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon icon-purple">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                        </div>
+                        <h3>Self-Healing Supply Chain</h3>
+                        <p>72-hour advance disruption detection. Autonomous rerouting activates before your team even knows there's a problem.</p>
+                        <div class="feature-metric">
+                            <span class="metric-highlight">72hr</span> Predictive Window
+                        </div>
+                    </div>
+                    <div class="glass-feature glass-panel" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon icon-green">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                                <path d="M2 17l10 5 10-5"/>
+                                <path d="M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <h3>Rolling Negotiations</h3>
+                        <p>Procurement agents autonomously negotiate carrier bids 24/7, collapsing 6-8 week RFQ cycles into hours.</p>
+                        <div class="feature-metric">
+                            <span class="metric-highlight">90%</span> Faster Procurement
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Agent Marketplace -->
+    <section class="section section-agents" id="agents">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag glass-panel-mini">AGENT FLEET</span>
+                <h2 class="section-title">Modular agents. <span class="gradient-text">Infinite combinations.</span></h2>
+                <p class="section-desc">
+                    Every feature is an interchangeable, independently testable agent. 
+                    Build your logistics brain with LEGO-style building blocks.
+                </p>
+            </div>
+
+            <div class="agent-grid">
+                <!-- Procurement Agent -->
+                <div class="agent-card glass-panel" data-agent="procurement" data-aos="fade-up">
+                    <div class="agent-header">
+                        <div class="agent-icon-wrap" style="--agent-color: #00F0FF;">
+                            <div class="agent-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/>
+                                    <rect x="9" y="3" width="6" height="4" rx="1"/>
+                                    <path d="M9 14l2 2 4-4"/>
+                                </svg>
+                            </div>
+                            <div class="agent-pulse"></div>
+                        </div>
+                        <div class="agent-status">
+                            <span class="status-indicator active"></span>
+                            <span>Deployed</span>
+                        </div>
+                    </div>
+                    <h3 class="agent-name">Procurement Agent</h3>
+                    <p class="agent-desc">Collapses RFQ cycles from 6-8 weeks to hours. Autonomous carrier bidding with rolling negotiation protocols.</p>
+                    <div class="agent-stats">
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">90%</span>
+                            <span class="agent-stat-label">Faster Cycles</span>
+                        </div>
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">2x</span>
+                            <span class="agent-stat-label">Cost Savings</span>
+                        </div>
+                    </div>
+                    <div class="agent-trace glass-panel-mini">
+                        <div class="trace-mini-header">
+                            <span class="trace-mini-dot"></span>
+                            <span class="mono-text">Live Activity</span>
+                        </div>
+                        <div class="trace-mini-content mono-text" id="procurement-trace">
+                            Evaluating 47 carrier bids...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sustainability Agent -->
+                <div class="agent-card glass-panel" data-agent="sustainability" data-aos="fade-up" data-aos-delay="100">
+                    <div class="agent-header">
+                        <div class="agent-icon-wrap" style="--agent-color: #10B981;">
+                            <div class="agent-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M12 22c4-4 8-7.582 8-12a8 8 0 10-16 0c0 4.418 4 8 8 12z"/>
+                                    <path d="M12 12V8"/>
+                                    <path d="M12 12l3 2"/>
+                                    <circle cx="12" cy="10" r="1" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <div class="agent-pulse"></div>
+                        </div>
+                        <div class="agent-status">
+                            <span class="status-indicator active"></span>
+                            <span>Deployed</span>
+                        </div>
+                    </div>
+                    <h3 class="agent-name">Sustainability Agent</h3>
+                    <p class="agent-desc">Continuous ESG intelligence layer. Route optimization reduces fuel consumption by 10% and avoids 100K+ metric tons CO₂ annually.</p>
+                    <div class="agent-stats">
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">10%</span>
+                            <span class="agent-stat-label">Fuel Reduction</span>
+                        </div>
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">100K+</span>
+                            <span class="agent-stat-label">MT CO₂ Avoided</span>
+                        </div>
+                    </div>
+                    <div class="agent-trace glass-panel-mini">
+                        <div class="trace-mini-header">
+                            <span class="trace-mini-dot dot-green"></span>
+                            <span class="mono-text">Live Activity</span>
+                        </div>
+                        <div class="trace-mini-content mono-text" id="sustainability-trace">
+                            Optimizing Scope 3 emissions...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optimization Engine -->
+                <div class="agent-card glass-panel" data-agent="optimization" data-aos="fade-up" data-aos-delay="200">
+                    <div class="agent-header">
+                        <div class="agent-icon-wrap" style="--agent-color: #8B5CF6;">
+                            <div class="agent-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/>
+                                    <path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/>
+                                    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                                    <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                                </svg>
+                            </div>
+                            <div class="agent-pulse"></div>
+                        </div>
+                        <div class="agent-status">
+                            <span class="status-indicator active"></span>
+                            <span>Deployed</span>
+                        </div>
+                    </div>
+                    <h3 class="agent-name">Optimization Engine</h3>
+                    <p class="agent-desc">Self-healing supply chain intelligence. Identifies disruptions 72 hours in advance and reroutes shipments autonomously.</p>
+                    <div class="agent-stats">
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">72hr</span>
+                            <span class="agent-stat-label">Advance Detection</span>
+                        </div>
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">Auto</span>
+                            <span class="agent-stat-label">Rerouting</span>
+                        </div>
+                    </div>
+                    <div class="agent-trace glass-panel-mini">
+                        <div class="trace-mini-header">
+                            <span class="trace-mini-dot dot-purple"></span>
+                            <span class="mono-text">Live Activity</span>
+                        </div>
+                        <div class="trace-mini-content mono-text" id="optimization-trace">
+                            Scanning port congestion data...
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risk Detection Agent -->
+                <div class="agent-card glass-panel" data-agent="risk" data-aos="fade-up" data-aos-delay="300">
+                    <div class="agent-header">
+                        <div class="agent-icon-wrap" style="--agent-color: #F59E0B;">
+                            <div class="agent-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+                                    <line x1="12" y1="9" x2="12" y2="13"/>
+                                    <line x1="12" y1="17" x2="12.01" y2="17"/>
+                                </svg>
+                            </div>
+                            <div class="agent-pulse"></div>
+                        </div>
+                        <div class="agent-status">
+                            <span class="status-indicator active"></span>
+                            <span>Deployed</span>
+                        </div>
+                    </div>
+                    <h3 class="agent-name">Risk Detection Agent</h3>
+                    <p class="agent-desc">Scans global news, economic data, and geopolitical signals to detect emerging risks before they impact your supply chain.</p>
+                    <div class="agent-stats">
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">24/7</span>
+                            <span class="agent-stat-label">Global Scan</span>
+                        </div>
+                        <div class="agent-stat">
+                            <span class="agent-stat-value">Real-time</span>
+                            <span class="agent-stat-label">Alerts</span>
+                        </div>
+                    </div>
+                    <div class="agent-trace glass-panel-mini">
+                        <div class="trace-mini-header">
+                            <span class="trace-mini-dot dot-amber"></span>
+                            <span class="mono-text">Live Activity</span>
+                        </div>
+                        <div class="trace-mini-content mono-text" id="risk-trace">
+                            Monitoring geopolitical signals...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Intelligence Dashboard Preview -->
+    <section class="section section-intelligence" id="intelligence">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag glass-panel-mini">COMMAND CENTER</span>
+                <h2 class="section-title">Intelligence <span class="gradient-text">in motion.</span></h2>
+                <p class="section-desc">
+                    A SpaceX-grade control center for freight operations. 
+                    Real-time visibility across your entire supply chain network.
+                </p>
+            </div>
+
+            <!-- Agent Architecture Visualization -->
+            <div class="agent-arch glass-panel" data-aos="fade-up" style="margin-bottom: var(--space-2xl);">
+                <div class="arch-header">
+                    <div class="arch-title">
+                        <span class="panel-icon">◆</span>
+                        Agent-Based Architecture — Living Intelligence Ecosystem
+                    </div>
+                    <div class="arch-status mono-text">
+                        <span class="status-dot"></span>
+                        All Systems Operational
+                    </div>
+                </div>
+                <div class="arch-body">
+                    <div class="arch-layer arch-layer-input">
+                        <div class="arch-layer-label">DATA INGESTION</div>
+                        <div class="arch-nodes">
+                            <div class="arch-node glass-panel-mini" data-pulse="true">
+                                <span class="arch-node-icon">📡</span>
+                                <span class="arch-node-name">Market Feed</span>
+                                <span class="arch-node-stat">₹2,500Cr+ dataset</span>
+                            </div>
+                            <div class="arch-node glass-panel-mini" data-pulse="true">
+                                <span class="arch-node-icon">🚢</span>
+                                <span class="arch-node-name">Port Telemetry</span>
+                                <span class="arch-node-stat">847 vessels</span>
+                            </div>
+                            <div class="arch-node glass-panel-mini" data-pulse="true">
+                                <span class="arch-node-icon">🌐</span>
+                                <span class="arch-node-name">Geopolitical</span>
+                                <span class="arch-node-stat">24,700 signals</span>
+                            </div>
+                            <div class="arch-node glass-panel-mini" data-pulse="true">
+                                <span class="arch-node-icon">📊</span>
+                                <span class="arch-node-name">Carrier APIs</span>
+                                <span class="arch-node-stat">2,200+ transporters</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-flow">
+                        <div class="arch-flow-line"></div>
+                        <div class="arch-flow-dot"></div>
+                    </div>
+                    <div class="arch-layer arch-layer-core">
+                        <div class="arch-layer-label">AGENT ORCHESTRATION LAYER</div>
+                        <div class="arch-agents">
+                            <div class="arch-agent" style="--agent-clr: #00F0FF;">
+                                <div class="arch-agent-ring"></div>
+                                <div class="arch-agent-core">P</div>
+                                <span class="arch-agent-label">Procurement</span>
+                            </div>
+                            <div class="arch-agent" style="--agent-clr: #10B981;">
+                                <div class="arch-agent-ring"></div>
+                                <div class="arch-agent-core">S</div>
+                                <span class="arch-agent-label">Sustainability</span>
+                            </div>
+                            <div class="arch-agent" style="--agent-clr: #8B5CF6;">
+                                <div class="arch-agent-ring"></div>
+                                <div class="arch-agent-core">O</div>
+                                <span class="arch-agent-label">Optimization</span>
+                            </div>
+                            <div class="arch-agent" style="--agent-clr: #F59E0B;">
+                                <div class="arch-agent-ring"></div>
+                                <div class="arch-agent-core">R</div>
+                                <span class="arch-agent-label">Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-flow">
+                        <div class="arch-flow-line"></div>
+                        <div class="arch-flow-dot"></div>
+                    </div>
+                    <div class="arch-layer arch-layer-output">
+                        <div class="arch-layer-label">OUTPUT / ACTIONS</div>
+                        <div class="arch-nodes">
+                            <div class="arch-node glass-panel-mini">
+                                <span class="arch-node-icon">💰</span>
+                                <span class="arch-node-name">Rate Decisions</span>
+                                <span class="arch-node-stat">Autonomous</span>
+                            </div>
+                            <div class="arch-node glass-panel-mini">
+                                <span class="arch-node-icon">🛣️</span>
+                                <span class="arch-node-name">Route Plans</span>
+                                <span class="arch-node-stat">Self-healing</span>
+                            </div>
+                            <div class="arch-node glass-panel-mini">
+                                <span class="arch-node-icon">⚠️</span>
+                                <span class="arch-node-name">Risk Alerts</span>
+                                <span class="arch-node-stat">72hr advance</span>
+                            </div>
+                            <div class="arch-node glass-panel-mini">
+                                <span class="arch-node-icon">📋</span>
+                                <span class="arch-node-name">ESG Reports</span>
+                                <span class="arch-node-stat">Automated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-preview glass-panel" data-aos="fade-up">
+                <div class="dashboard-topbar">
+                    <div class="dash-tabs">
+                        <button class="dash-tab active" data-tab="overview">Overview</button>
+                        <button class="dash-tab" data-tab="lanes">Lane Analysis</button>
+                        <button class="dash-tab" data-tab="agents">Agent Status</button>
+                        <button class="dash-tab" data-tab="emissions">Emissions</button>
+                    </div>
+                    <div class="dash-time">
+                        <span class="mono-text" id="dash-clock">00:00:00 UTC</span>
+                    </div>
+                </div>
+                <div class="dashboard-body">
+                    <div class="dash-main">
+                        <!-- KPI Cards -->
+                        <div class="kpi-grid">
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-label">Active Shipments</span>
+                                    <span class="kpi-trend trend-up" id="kpi-shipments-trend">↑ 12%</span>
+                                </div>
+                                <div class="kpi-value" id="kpi-shipments">—</div>
+                                <div class="kpi-sparkline" id="spark-shipments"></div>
+                            </div>
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-label">Avg Rate / Mile</span>
+                                    <span class="kpi-trend trend-down" id="kpi-rate-trend">↓ 5.2%</span>
+                                </div>
+                                <div class="kpi-value" id="kpi-rate">—</div>
+                                <div class="kpi-sparkline" id="spark-rate"></div>
+                            </div>
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-label">Agent Efficiency</span>
+                                    <span class="kpi-trend trend-up" id="kpi-efficiency-trend">↑ 3.1%</span>
+                                </div>
+                                <div class="kpi-value" id="kpi-efficiency">—</div>
+                                <div class="kpi-sparkline" id="spark-efficiency"></div>
+                            </div>
+                            <div class="kpi-card">
+                                <div class="kpi-header">
+                                    <span class="kpi-label">CO₂ Saved (MTD)</span>
+                                    <span class="kpi-trend trend-up" id="kpi-co2-trend">↑ 18%</span>
+                                </div>
+                                <div class="kpi-value accent-green" id="kpi-co2">—</div>
+                                <div class="kpi-sparkline" id="spark-co2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Live Map Simulation -->
+                        <div class="dash-map glass-panel-mini">
+                            <div class="map-header">
+                                <span>Global Freight Grid — Live</span>
+                                <span class="map-live-dot"></span>
+                            </div>
+                            <canvas id="dash-map-canvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="dash-sidebar">
+                        <!-- Agent Activity Feed -->
+                        <div class="activity-feed">
+                            <div class="feed-header">Agent Activity</div>
+                            <div class="feed-list" id="activity-feed">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                        <!-- System Health -->
+                        <div class="system-health glass-panel-mini">
+                            <div class="health-header">System Health</div>
+                            <div class="health-bars">
+                                <div class="health-item">
+                                    <span class="health-label">Procurement</span>
+                                    <div class="health-bar"><div class="health-fill" id="health-procurement" style="width:0%; --bar-color: #00F0FF;"></div></div>
+                                    <span class="health-pct" id="health-pct-procurement">—</span>
+                                </div>
+                                <div class="health-item">
+                                    <span class="health-label">Sustainability</span>
+                                    <div class="health-bar"><div class="health-fill" id="health-sustainability" style="width:0%; --bar-color: #10B981;"></div></div>
+                                    <span class="health-pct" id="health-pct-sustainability">—</span>
+                                </div>
+                                <div class="health-item">
+                                    <span class="health-label">Optimization</span>
+                                    <div class="health-bar"><div class="health-fill" id="health-optimization" style="width:0%; --bar-color: #8B5CF6;"></div></div>
+                                    <span class="health-pct" id="health-pct-optimization">—</span>
+                                </div>
+                                <div class="health-item">
+                                    <span class="health-label">Risk Detection</span>
+                                    <div class="health-bar"><div class="health-fill" id="health-risk" style="width:0%; --bar-color: #F59E0B;"></div></div>
+                                    <span class="health-pct" id="health-pct-risk">—</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI Calculator -->
+    <section class="section section-roi" id="roi">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag glass-panel-mini">PROOF OF INTELLIGENCE</span>
+                <h2 class="section-title">Your personalized <span class="gradient-text">savings blueprint.</span></h2>
+                <p class="section-desc">
+                    See exactly how much LoRRI's autonomous agents can save your operation.
+                    Powered by real data from our ₹2,500 Crore+ freight intelligence dataset.
+                </p>
+            </div>
+
+            <div class="roi-calculator glass-panel" data-aos="fade-up">
+                <div class="roi-inputs">
+                    <h3 class="roi-inputs-title">Configure Your Fleet</h3>
+                    <div class="roi-input-group">
+                        <label class="roi-label">Annual Freight Spend</label>
+                        <div class="roi-input-wrap">
+                            <span class="roi-prefix">₹</span>
+                            <input type="range" id="roi-spend" min="10000000" max="5000000000" value="500000000" step="10000000">
+                            <span class="roi-value-display" id="roi-spend-val">₹50Cr</span>
+                        </div>
+                    </div>
+                    <div class="roi-input-group">
+                        <label class="roi-label">Number of Lanes</label>
+                        <div class="roi-input-wrap">
+                            <input type="range" id="roi-lanes" min="10" max="5000" value="500" step="10">
+                            <span class="roi-value-display" id="roi-lanes-val">500</span>
+                        </div>
+                    </div>
+                    <div class="roi-input-group">
+                        <label class="roi-label">RFQ Cycles per Year</label>
+                        <div class="roi-input-wrap">
+                            <input type="range" id="roi-rfq" min="1" max="52" value="4" step="1">
+                            <span class="roi-value-display" id="roi-rfq-val">4</span>
+                        </div>
+                    </div>
+                    <div class="roi-input-group">
+                        <label class="roi-label">Team Size (Logistics)</label>
+                        <div class="roi-input-wrap">
+                            <input type="range" id="roi-team" min="1" max="200" value="15" step="1">
+                            <span class="roi-value-display" id="roi-team-val">15</span>
+                        </div>
+                    </div>
+                    <div class="roi-agents-select">
+                        <label class="roi-label">Deploy Agents</label>
+                        <div class="roi-agent-toggles">
+                            <label class="agent-toggle active">
+                                <input type="checkbox" checked data-agent="procurement"> Procurement
+                            </label>
+                            <label class="agent-toggle active">
+                                <input type="checkbox" checked data-agent="sustainability"> Sustainability
+                            </label>
+                            <label class="agent-toggle active">
+                                <input type="checkbox" checked data-agent="optimization"> Optimization
+                            </label>
+                            <label class="agent-toggle active">
+                                <input type="checkbox" checked data-agent="risk"> Risk Detection
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="roi-results">
+                    <h3 class="roi-results-title">Projected Annual Impact</h3>
+                    <div class="roi-result-cards">
+                        <div class="roi-result-card">
+                            <div class="roi-result-icon icon-cyan">₹</div>
+                            <div class="roi-result-data">
+                                <span class="roi-result-value" id="roi-cost-savings">₹0</span>
+                                <span class="roi-result-label">Cost Savings</span>
+                            </div>
+                        </div>
+                        <div class="roi-result-card">
+                            <div class="roi-result-icon icon-purple">⏱</div>
+                            <div class="roi-result-data">
+                                <span class="roi-result-value" id="roi-time-saved">0 hrs</span>
+                                <span class="roi-result-label">Time Saved</span>
+                            </div>
+                        </div>
+                        <div class="roi-result-card">
+                            <div class="roi-result-icon icon-green">🌱</div>
+                            <div class="roi-result-data">
+                                <span class="roi-result-value" id="roi-co2-saved">0 MT</span>
+                                <span class="roi-result-label">CO₂ Reduction</span>
+                            </div>
+                        </div>
+                        <div class="roi-result-card">
+                            <div class="roi-result-icon icon-amber">⚡</div>
+                            <div class="roi-result-data">
+                                <span class="roi-result-value" id="roi-efficiency">0%</span>
+                                <span class="roi-result-label">Efficiency Gain</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="roi-total glass-panel-mini">
+                        <div class="roi-total-label">Total ROI (First Year)</div>
+                        <div class="roi-total-value" id="roi-total">0x</div>
+                        <div class="roi-total-sub" id="roi-payback">Payback period: — months</div>
+                    </div>
+                    <a href="#demo" class="btn btn-primary btn-lg roi-cta">
+                        <span class="btn-glow"></span>
+                        Get Full Analysis Report
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Demo Section -->
+    <section class="section section-cta" id="demo">
+        <div class="section-container">
+            <div class="cta-content">
+                <h2 class="cta-title">
+                    Ready to deploy your<br>
+                    <span class="gradient-text">Global Smart Logistics Grid?</span>
+                </h2>
+                <p class="cta-desc">
+                    Join the enterprises that have moved beyond spreadsheets.<br>
+                    Trusted by Onida, Saint Gobain, Perfetti Van Melle, Jyothy Labs, Apollo Tyres and more.
+                </p>
+                <div class="cta-actions">
+                    <a href="mailto:lorri@logisticsnow.in" class="btn btn-primary btn-xl">
+                        <span class="btn-glow"></span>
+                        Schedule Meeting / Demo Now
+                    </a>
+                    <a href="tel:+919867773508" class="btn btn-ghost btn-xl">Call +91-9867773508 →</a>
+                </div>
+                <div class="cta-trust">
+                    <span class="trust-label">Trusted by</span>
+                    <div class="trust-logos">
+                        <span class="trust-logo">Saint Gobain</span>
+                        <span class="trust-logo">Onida</span>
+                        <span class="trust-logo">Perfetti Van Melle</span>
+                        <span class="trust-logo">Apollo Tyres</span>
+                        <span class="trust-logo">Bajaj Electricals</span>
+                        <span class="trust-logo">Shell</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="brand-text">LoRRI<span class="brand-dot">.ai</span></div>
+                <p class="footer-tagline">Global Smart Logistics Grid by LogisticsNow</p>
+                <p class="footer-contact">
+                    <a href="mailto:lorri@logisticsnow.in">✉ lorri@logisticsnow.in</a><br>
+                    <a href="tel:+919867773508">☎ +91-9867773508</a>
+                </p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="https://company.lorri.in/" target="_blank">Manufacturer Login</a>
+                    <a href="https://transporter.lorri.in/" target="_blank">Transporter / LSP Login</a>
+                    <a href="https://company.lorri.in/benchmarknow" target="_blank">Lane Benchmarking</a>
+                    <a href="https://procurement.lorri.in/auction" target="_blank">Procurement Auction</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Modules</h4>
+                    <a href="#agents">Intelligence</a>
+                    <a href="#agents">Procurement</a>
+                    <a href="#platform">TMS Planning</a>
+                    <a href="#intelligence">Spot / Indent</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="https://logisticsnow.in/about-us.aspx" target="_blank">About LogisticsNow</a>
+                    <a href="https://logisticsnow.in/careers.aspx" target="_blank">Careers</a>
+                    <a href="https://logisticsnow.in/news.aspx" target="_blank">News & Events</a>
+                    <a href="https://logisticsnow.in/contact-us.aspx" target="_blank">Contact Us</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 LogisticsNow — LoRRI.ai Global Smart Logistics Grid</span>
+                <div class="footer-bottom-links">
+                    <a href="https://lntermsandconditions.blob.core.windows.net/tnc/privacypolicy.html" target="_blank">Privacy</a>
+                    <a href="https://lntermsandconditions.blob.core.windows.net/tnc/benchmark_tnc.html" target="_blank">Terms</a>
+                    <a href="#" onclick="return false;">Status</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cmd+K Command Palette -->
+    <div class="cmdk-overlay" id="cmdk-overlay">
+        <div class="cmdk-modal glass-panel">
+            <div class="cmdk-input-wrap">
+                <svg class="cmdk-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" class="cmdk-input" id="cmdk-input" placeholder="Ask LoRRI anything... (e.g. JNPT port status)" autocomplete="off" spellcheck="false">
+                <kbd class="cmdk-esc">ESC</kbd>
+            </div>
+            <div class="cmdk-body" id="cmdk-body">
+                <div class="cmdk-section">
+                    <div class="cmdk-section-label">SUGGESTED QUERIES</div>
+                    <button class="cmdk-item" data-query="JNPT port congestion status">
+                        <span class="cmdk-item-icon">🚢</span>
+                        <span class="cmdk-item-text">JNPT port congestion status</span>
+                        <span class="cmdk-item-tag">Port Intel</span>
+                    </button>
+                    <button class="cmdk-item" data-query="Current spot rates">
+                        <span class="cmdk-item-icon">📊</span>
+                        <span class="cmdk-item-text">Current spot rate analysis</span>
+                        <span class="cmdk-item-tag">Rates</span>
+                    </button>
+                    <button class="cmdk-item" data-query="carrier performance scorecard">
+                        <span class="cmdk-item-icon">🏆</span>
+                        <span class="cmdk-item-text">Carrier performance scorecards</span>
+                        <span class="cmdk-item-tag">Transporters</span>
+                    </button>
+                    <button class="cmdk-item" data-query="agent status system health">
+                        <span class="cmdk-item-icon">🤖</span>
+                        <span class="cmdk-item-text">Agent fleet system health</span>
+                        <span class="cmdk-item-tag">Agents</span>
+                    </button>
+                    <button class="cmdk-item" data-query="carbon emissions sustainability">
+                        <span class="cmdk-item-icon">🌱</span>
+                        <span class="cmdk-item-text">Sustainability & carbon report</span>
+                        <span class="cmdk-item-tag">ESG</span>
+                    </button>
+                    <button class="cmdk-item" data-query="risk alerts disruption">
+                        <span class="cmdk-item-icon">⚡</span>
+                        <span class="cmdk-item-text">Active risk alerts & disruptions</span>
+                        <span class="cmdk-item-tag">Risk</span>
+                    </button>
+                </div>
+            </div>
+            <div class="cmdk-footer">
+                <span class="cmdk-footer-hint"><kbd>↵</kbd> to query</span>
+                <span class="cmdk-footer-hint"><kbd>↑↓</kbd> to navigate</span>
+                <span class="cmdk-footer-hint"><kbd>esc</kbd> to close</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Widget -->
+    <div class="chat-widget" id="chat-widget">
+        <button class="chat-fab" id="chat-fab" aria-label="Open AI Assistant">
+            <div class="chat-fab-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+                    <path d="M10 21h4"/>
+                    <path d="M9 9h.01M15 9h.01"/>
+                    <path d="M9.5 13a3.5 3.5 0 0 0 5 0"/>
+                </svg>
+            </div>
+            <span class="chat-fab-pulse"></span>
+            <span class="chat-fab-label">Ask LoRRI</span>
+        </button>
+        <div class="chat-panel glass-panel" id="chat-panel">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <span class="chat-avatar">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+                            <path d="M9 9h.01M15 9h.01"/>
+                        </svg>
+                    </span>
+                    <div>
+                        <div class="chat-header-title">LoRRI Assistant</div>
+                        <div class="chat-header-status"><span class="status-dot"></span> Online — v3.0</div>
+                    </div>
+                </div>
+                <button class="chat-close" id="chat-close" aria-label="Close chat">✕</button>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messages injected by JS -->
+            </div>
+            <div class="chat-suggestions" id="chat-suggestions">
+                <button class="chat-suggestion" data-msg="What can you do?">What can you do?</button>
+                <button class="chat-suggestion" data-msg="Show spot rates">Show spot rates</button>
+                <button class="chat-suggestion" data-msg="JNPT port status">Port status</button>
+                <button class="chat-suggestion" data-msg="Calculate ROI">Calculate ROI</button>
+            </div>
+            <div class="chat-input-wrap">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Ask about rates, ports, agents..." autocomplete="off">
+                <button class="chat-send" id="chat-send" aria-label="Send message">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Intelligence Pulse Bar -->
+    <div class="intel-pulse" id="intel-pulse">
+        <div class="intel-pulse-inner">
+            <div class="intel-pulse-item">
+                <span class="intel-pulse-dot"></span>
+                <span class="intel-pulse-text" id="pulse-text-1">Analyzing 80,000+ routes in real-time</span>
+            </div>
+            <div class="intel-pulse-separator">•</div>
+            <div class="intel-pulse-item">
+                <span class="intel-pulse-text" id="pulse-text-2">FTL rate: ₹68/km (↓3.2%)</span>
+            </div>
+            <div class="intel-pulse-separator">•</div>
+            <div class="intel-pulse-item">
+                <span class="intel-pulse-text" id="pulse-text-3">JNPT congestion: 12.8%</span>
+            </div>
+            <div class="intel-pulse-separator">•</div>
+            <div class="intel-pulse-item">
+                <span class="intel-pulse-text" id="pulse-text-4">CO₂ saved YTD: 12,847 MT</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
